@@ -1,0 +1,13 @@
+{
+	"name": "InplaceNG",
+	"version": "0.1.0",
+	"devDependencies": {
+		"grunt": "*",
+		"grunt-contrib-clean": "*",
+		"grunt-contrib-coffee": "*",
+		"grunt-contrib-jshint": "*",
+		"grunt-contrib-watch": "*",
+		"grunt-este": "*",
+		"grunt-coffeelint": "*"
+	}
+}
