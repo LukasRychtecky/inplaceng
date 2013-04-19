@@ -13,7 +13,7 @@ module.exports = (grunt) ->
   ]
 
   ccJSFiles = [
-    'src/cc/**/*.js',
+    'src/inplace/**/*.js',
     'src/api.js'
   ]
 
@@ -118,11 +118,6 @@ module.exports = (grunt) ->
         no_backticks:
           level: 'ignore'
         max_line_length:
-          level: 'ignore'
-        indentation:
-          value: 1
-          level: 'error'
-        no_tabs:
           level: 'ignore'
         line_endings:
           value: 'unix'
