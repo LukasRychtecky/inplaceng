@@ -1,3 +1,3 @@
 # InplaceNG
 
-InplaceNG is a next generation inplace editor.
+InplaceNG is a next generation of an inplace editor.
