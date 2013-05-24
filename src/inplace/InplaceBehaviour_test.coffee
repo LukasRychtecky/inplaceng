@@ -39,8 +39,7 @@ suite 'cc.inplace.InplaceBehaviour', ->
     beh.showEditor(edit, view, field)
     beh.hideEditor(edit, view)
     beforeUnload = win.events[BEFORE_UNLOAD]()
-    assert.isString(beforeUnload)
-    assert.equal(beforeUnload.length, 0)
+    assert.isNull(beforeUnload)
 
   test 'Should show an editor and hide a view part', (done) ->
     beh.showEditor(edit, view, mockEl(done))
