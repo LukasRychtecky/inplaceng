@@ -73,10 +73,15 @@ suite 'cc.inplace.InplaceBuilder', ->
 
     test 'Should take styles from editable element', ->
       styles =
-        heigth: '1em'
+        height: '1em'
         font: 'Arial 1em'
         color: '#000'
         background: 'none'
+        margin: '2em'
+
+      document.defaultView.getComputedStyle = ->
+        styles
+
       goog.style.setStyle(view, key, val) for key, val of styles
       builder.build(field, view)
       assert.equal(goog.style.getStyle(field, key), val) for key, val of styles
