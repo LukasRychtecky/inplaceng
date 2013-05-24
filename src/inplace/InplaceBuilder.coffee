@@ -149,6 +149,6 @@ class cc.inplace.InplaceBuilder
     @param {Element} viewEl
   ###
   applyStyles: (viewEl) ->
-    for key in ['height', 'font', 'color', 'background']
+    for key in ['height', 'font', 'color', 'background', 'margin']
       goog.style.setStyle(@field, key, goog.style.getComputedStyle(viewEl, key))
 

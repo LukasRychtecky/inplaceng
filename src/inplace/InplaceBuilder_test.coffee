@@ -77,6 +77,7 @@ suite 'cc.inplace.InplaceBuilder', ->
         font: 'Arial 1em'
         color: '#000'
         background: 'none'
+        margin: '2em'
 
       document.defaultView.getComputedStyle = ->
         styles
