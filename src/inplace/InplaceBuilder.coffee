@@ -14,7 +14,7 @@ class cc.inplace.InplaceBuilder
     @param {Object.<string, *>=} options
   ###
   constructor: (@dom, options = {}) ->
-    goog.object.extend(options, title: 'Edit')
+    goog.object.extend(options, 'title': 'Edit')
     @options = options
 
   ###*

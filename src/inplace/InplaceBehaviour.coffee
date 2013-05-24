@@ -12,7 +12,7 @@ class cc.inplace.InplaceBehaviour
     @param {Object=} options
   ###
   constructor: (win, options = {}) ->
-    goog.object.extend(options, preventRedirectText: 'Changes will not be saved. Do you want to continue?')
+    goog.object.extend(options, 'preventRedirectText': 'Changes will not be saved. Do you want to continue?')
     @opts = options
     that = @
     goog.events.listen win, goog.events.EventType.BEFOREUNLOAD, ->
