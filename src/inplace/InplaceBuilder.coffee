@@ -13,8 +13,9 @@ class cc.inplace.InplaceBuilder
     @param {goog.dom.DomHelper} dom
     @param {Object.<string, *>=} options
   ###
-  constructor: (@dom, options = {}) ->
-    goog.object.extend(options, 'title': 'Edit')
+  constructor: (@dom, options = {'title': 'Edit'}) ->
+    for key, val of options
+      goog.object.setIfUndefined(options, key, val)
     @options = options
 
   ###*
