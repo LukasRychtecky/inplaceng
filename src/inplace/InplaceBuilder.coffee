@@ -132,7 +132,7 @@ class cc.inplace.InplaceBuilder
     @param {string=} btnClass
     @return {Element}
   ###
-  buildButton: (iconClass, btnClass) ->
+  buildButton: (iconClass, btnClass = '') ->
     btn = @dom.createDom('button', 'class': btnClass)
     btn.appendChild(@buildIcon(iconClass))
     btn

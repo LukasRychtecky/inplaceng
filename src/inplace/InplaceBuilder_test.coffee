@@ -58,6 +58,7 @@ suite 'cc.inplace.InplaceBuilder', ->
       builder.build(field, view)
       button = fieldParent.lastChild
       assert.equal(button.tagName, 'BUTTON')
+      assert.equal(button.className, '')
       icon = button.firstChild
       assert.equal(icon.tagName, 'I')
       assert.equal(icon.className, 'icon-remove')
@@ -66,6 +67,7 @@ suite 'cc.inplace.InplaceBuilder', ->
       builder.build(field, view)
       button = fieldParent.firstChild
       assert.equal(button.tagName, 'BUTTON')
+      assert.equal(button.className, '')
       icon = button.firstChild
       assert.equal(icon.tagName, 'I')
       assert.equal(icon.className, 'icon-ok')
