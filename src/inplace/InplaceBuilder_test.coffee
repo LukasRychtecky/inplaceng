@@ -45,6 +45,15 @@ suite 'cc.inplace.InplaceBuilder', ->
       assert.equal(icon.className, 'icon-pencil')
       assert.equal(icon.title, 'Edit')
 
+    test 'Should build an icon with a custom title', ->
+      title = 'Edit text'
+      builder = new InplaceBuilder(dom, 'title': title)
+      builder.build(field, view)
+      icon = viewParent.firstChild
+      assert.equal(icon.tagName, 'I')
+      assert.equal(icon.className, 'icon-pencil')
+      assert.equal(icon.title, title)
+
     test 'Should build cancel button', ->
       builder.build(field, view)
       button = fieldParent.lastChild
@@ -61,7 +70,7 @@ suite 'cc.inplace.InplaceBuilder', ->
       assert.equal(icon.tagName, 'I')
       assert.equal(icon.className, 'icon-ok')
 
-    test 'Should not build save button, alreasy exists', ->
+    test 'Should not build save button, already exists', ->
       saveButton = mockEl('button', fieldParent)
       fieldParent.appendChild(saveButton)
       fieldParent.querySelector = (selector) ->
