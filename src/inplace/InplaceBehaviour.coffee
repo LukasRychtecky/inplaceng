@@ -16,7 +16,7 @@ class cc.inplace.InplaceBehaviour
     @opts = options
     that = @
     goog.events.listen win, goog.events.EventType.BEFOREUNLOAD, ->
-      if that.editing then options.preventRedirectText else undefined
+      if that.editing then options['preventRedirectText'] else undefined
 
   ###*
     @type {boolean}
