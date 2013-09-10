@@ -84,7 +84,7 @@ suite 'cc.inplace.InplaceBuilder', ->
 
     test 'Should take styles from editable element', ->
       styles =
-        height: '1em'
+        height: '0px'
         font: 'Arial 1em'
         color: '#000'
         background: 'none'
@@ -95,11 +95,22 @@ suite 'cc.inplace.InplaceBuilder', ->
 
       goog.style.setStyle(view, key, val) for key, val of styles
       builder.build(field, view)
+      goog.object.remove(styles, 'height')
       assert.equal(goog.style.getStyle(field, key), val) for key, val of styles
+      assert.notEqual(goog.style.getStyle(field, 'height'), '0px')
 
   suite '#hangListeners', ->
 
     setup ->
+      document.defaultView.getComputedStyle = ->
+        styles =
+          height: '0px'
+          font: 'Arial 1em'
+          color: '#000'
+          background: 'none'
+          margin: '2em'
+        styles
+
       builder.build(field, view)
 
       for el in [viewParent.firstChild, fieldParent.firstChild, fieldParent.lastChild]
