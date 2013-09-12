@@ -1,6 +1,6 @@
 {
 	"name": "inplaceng",
-	"version": "0.1.7",
+	"version": "0.1.8",
 	"dependencies" : {
 		"este-library": "git://github.com/LukasRychtecky/este-library.git#1.0.17p1",
 		"closure-compiler": "http://closure-compiler.googlecode.com/files/compiler-latest.zip"
