@@ -3,6 +3,7 @@ goog.provide 'cc.inplace.InplaceBehaviour'
 goog.require 'goog.events'
 goog.require 'goog.style'
 goog.require 'goog.object'
+goog.require 'goog.userAgent'
 
 class cc.inplace.InplaceBehaviour
 
@@ -31,7 +32,7 @@ class cc.inplace.InplaceBehaviour
   showEditor: (edit, view, field) ->
     goog.style.setElementShown(view, false)
     goog.style.setElementShown(edit, true)
-    field.focus()
+    field.focus() unless goog.userAgent.IE # IE fails on focusing the input
     @editing = true
 
   ###*
