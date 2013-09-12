@@ -7,6 +7,7 @@ suite 'cc.inplace.InplaceBuilder', ->
   viewParent = null
   field = null
   fieldParent = null
+  styles = null
 
   mockEl = (tag, parent = null) ->
     el = document.createElement(tag)
@@ -56,6 +57,18 @@ suite 'cc.inplace.InplaceBuilder', ->
     getIcon().events['click'](e)
 
   setup ->
+    styles =
+      height: '0px'
+      fontFamily: 'Arial'
+      fontSize: '1em'
+      fontStyle: 'normal'
+      fontVariant: 'normal'
+      fontWeight: 'normal'
+      lineHeight: 'normal'
+      color: '#000'
+      background: 'none'
+      margin: '2em'
+
     viewParent = mockEl('div')
     view = mockEl('h1', viewParent)
 
@@ -112,13 +125,6 @@ suite 'cc.inplace.InplaceBuilder', ->
       assert.equal(fieldParent.childNodes.length, 2)
 
     test 'Should take styles from editable element', ->
-      styles =
-        height: '0px'
-        font: 'Arial 1em'
-        color: '#000'
-        background: 'none'
-        margin: '2em'
-
       document.defaultView.getComputedStyle = ->
         styles
 
@@ -132,12 +138,6 @@ suite 'cc.inplace.InplaceBuilder', ->
 
     setup ->
       document.defaultView.getComputedStyle = ->
-        styles =
-          height: '0px'
-          font: 'Arial 1em'
-          color: '#000'
-          background: 'none'
-          margin: '2em'
         styles
 
       builder.build(field, view)
