@@ -101,10 +101,14 @@ class cc.inplace.InplaceBuilder
     @param {cc.inplace.InplaceBehaviour} behaviour
   ###
   hangListeners: (behaviour) ->
-    origVal = ''
+    origVal = null
     field = @field
     edit = @edit
     view = @view
+
+    rollBackFieldValue = ->
+      goog.dom.forms.setValue(field, origVal)
+      origVal = null
 
     goog.events.listen @icon, goog.events.EventType.CLICK, ->
       origVal = goog.dom.forms.getValue(field)
@@ -123,6 +127,7 @@ class cc.inplace.InplaceBuilder
 
     goog.events.listen @cancelButton, goog.events.EventType.CLICK, (e) ->
       e.preventDefault()
+      rollBackFieldValue()
       behaviour.cancelEditing(edit, view)
       false
 
