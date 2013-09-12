@@ -18,13 +18,42 @@ suite 'cc.inplace.InplaceBuilder', ->
 
   mockField = (parent, form) ->
     f = mockEl('input', parent)
+    f.type = 'text'
     f.form = form
     f
+
+  mockEvent = (onPreventDefault = null) ->
+    e =
+      preventDefault: ->
+        onPreventDefault() if onPreventDefault?
+    e
 
   injectAddListener = (el) ->
     el.events = {}
     el.addEventListener = (type, proxy, capture) ->
       el.events[type] = proxy
+
+  clickedBtn = (btn, e = null) ->
+    unless e?
+      e = mockEvent()
+    fieldParent[btn].events['click'](e)
+
+  saveClick = (e = null) ->
+    clickedBtn('firstChild', e)
+
+  cancelClick = (e = null) ->
+    clickedBtn('lastChild', e)
+
+  changeInputValue = (val) ->
+    field.value = val
+
+  getIcon = ->
+    viewParent.firstChild
+
+  iconClick = (e = null) ->
+    unless e?
+      e = mockEvent()
+    getIcon().events['click'](e)
 
   setup ->
     viewParent = mockEl('div')
@@ -40,7 +69,7 @@ suite 'cc.inplace.InplaceBuilder', ->
 
     test 'Should build an icon', ->
       builder.build(field, view)
-      icon = viewParent.firstChild
+      icon = getIcon()
       assert.equal(icon.tagName, 'I')
       assert.equal(icon.className, 'icon-pencil')
       assert.equal(icon.title, 'Edit')
@@ -49,7 +78,7 @@ suite 'cc.inplace.InplaceBuilder', ->
       title = 'Edit text'
       builder = new InplaceBuilder(dom, 'title': title)
       builder.build(field, view)
-      icon = viewParent.firstChild
+      icon = getIcon()
       assert.equal(icon.tagName, 'I')
       assert.equal(icon.className, 'icon-pencil')
       assert.equal(icon.title, title)
@@ -113,17 +142,16 @@ suite 'cc.inplace.InplaceBuilder', ->
 
       builder.build(field, view)
 
-      for el in [viewParent.firstChild, fieldParent.firstChild, fieldParent.lastChild]
+      for el in [getIcon(), fieldParent.firstChild, fieldParent.lastChild]
         injectAddListener(el)
 
-    test 'Should hang click listener on an icon', (done) ->
+    test 'Should open editor', (done) ->
       beh =
         showEditor: ->
           done()
 
       builder.hangListeners(beh)
-      icon = viewParent.firstChild
-      icon.events['click']()
+      iconClick()
 
     test 'Should save editing on enter', (done) ->
       beh =
@@ -156,19 +184,28 @@ suite 'cc.inplace.InplaceBuilder', ->
         saveEditing: ->
 
       builder.hangListeners(beh)
-      e =
-        preventDefault: ->
-          done()
 
-      assert.isFalse(fieldParent.firstChild.events['click'](e))
+      assert.isFalse(saveClick(mockEvent(done)))
 
     test 'Should cancel editing by clicking in cancel button', (done) ->
       beh =
         cancelEditing: ->
 
       builder.hangListeners(beh)
-      e =
-        preventDefault: ->
-          done()
 
-      assert.isFalse(fieldParent.lastChild.events['click'](e))
+      assert.isFalse(cancelClick(mockEvent(done)))
+
+    test 'Should rollback changed an input value on cancel editing', ->
+      beh =
+        showEditor: ->
+        cancelEditing: ->
+        saveEditing: ->
+
+      builder.hangListeners(beh)
+      newValue = 'Foo'
+
+      iconClick()
+      changeInputValue(newValue)
+      cancelClick()
+      iconClick()
+      assert.notEqual(goog.dom.forms.getValue(field), newValue)
