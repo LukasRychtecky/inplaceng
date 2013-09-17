@@ -155,7 +155,6 @@ class cc.inplace.InplaceBuilder
     @param {Element} viewEl
   ###
   applyStyles: (viewEl) ->
-    for key in ['height', 'fontStyle', 'fontVariant', 'fontWeight', 'fontSize', 'lineHeight', 'fontFamily', 'color', 'background', 'margin']
-      if goog.style.getComputedStyle(viewEl, key) isnt '0px'
-        goog.style.setStyle(@field, key, goog.style.getComputedStyle(viewEl, key))
+    for key in ['fontStyle', 'fontVariant', 'fontWeight', 'fontSize', 'lineHeight', 'fontFamily', 'color', 'background', 'margin']
+      goog.style.setStyle(@field, key, goog.style.getComputedStyle(viewEl, key))
 
