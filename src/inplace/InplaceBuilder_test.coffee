@@ -58,7 +58,6 @@ suite 'cc.inplace.InplaceBuilder', ->
 
   setup ->
     styles =
-      height: '0px'
       fontFamily: 'Arial'
       fontSize: '1em'
       fontStyle: 'normal'
@@ -130,9 +129,7 @@ suite 'cc.inplace.InplaceBuilder', ->
 
       goog.style.setStyle(view, key, val) for key, val of styles
       builder.build(field, view)
-      goog.object.remove(styles, 'height')
       assert.equal(goog.style.getStyle(field, key), val) for key, val of styles
-      assert.notEqual(goog.style.getStyle(field, 'height'), '0px')
 
   suite '#hangListeners', ->
 
