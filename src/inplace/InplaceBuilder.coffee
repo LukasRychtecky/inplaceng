@@ -116,7 +116,7 @@ class cc.inplace.InplaceBuilder
 
     goog.events.listen field, goog.events.EventType.KEYUP, (e) ->
       switch e.keyCode
-        when goog.events.KeyCodes.ENTER then behaviour.saveEditing(edit, view, origVal, goog.dom.forms.getValue(field))
+        when goog.events.KeyCodes.ENTER then behaviour.saveEditing(edit, view, origVal, goog.dom.forms.getValue(field), field)
         when goog.events.KeyCodes.ESC then behaviour.cancelEditing(edit, view)
         else
 

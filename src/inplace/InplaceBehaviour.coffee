@@ -38,25 +38,29 @@ class cc.inplace.InplaceBehaviour
   ###*
     @param {Element} edit
     @param {Element} view
+    @param {Element|null|undefined=} field
   ###
-  hideEditor: (edit, view) ->
+  hideEditor: (edit, view, field = null) ->
     goog.style.setElementShown(edit, false)
     goog.style.setElementShown(view, true)
+    field.blur() if field?
     @editing = false
 
   ###*
     @param {Element} edit
     @param {Element} view
+    @param {*} origValue
+    @param {*} curValue
+    @param {Element|null|undefined=} field
   ###
-  saveEditing: (edit, view, origValue, curValue) ->
+  saveEditing: (edit, view, origValue, curValue, field = null) ->
     if origValue isnt curValue
       if @opts.onSave
-        that = @
-        @opts.onSave edit, view, origValue, curValue, ->
-          that.hideEditor(edit,view)
+        @opts.onSave edit, view, origValue, curValue, field, =>
+          @hideEditor(edit, view, field)
 #       send form
     else
-      @hideEditor(edit, view)
+      @hideEditor(edit, view, field)
 
   ###*
     @param {Element} edit
